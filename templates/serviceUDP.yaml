@@ -1,0 +1,25 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "kube-chrony.fullname" . }}
+  labels:
+    {{- include "kube-chrony.labels" . | nindent 4 }}
+{{- if .Values.serviceUDP.annotations }}
+  annotations:
+{{ toYaml .Values.serviceUDP.annotations | indent 4 }}
+{{- end }}
+spec:
+  type: {{ .Values.serviceUDP.type }}
+  {{- if .Values.serviceUDP.loadBalancerIP }}
+  loadBalancerIP: {{ .Values.serviceUDP.loadBalancerIP }}
+  {{- end }}
+  {{- if or (eq .Values.serviceUDP.type "NodePort") (eq .Values.serviceUDP.type "LoadBalancer") }}
+  externalTrafficPolicy: {{ .Values.serviceUDP.externalTrafficPolicy }}
+  {{- end }}
+  ports:
+    - port: {{ .Values.serviceUDP.port }}
+      targetPort: ntp
+      protocol: UDP
+      name: ntp
+  selector:
+    {{- include "kube-chrony.selectorLabels" . | nindent 4 }}
