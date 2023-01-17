@@ -14,3 +14,5 @@ helm uninstall kube-chrony                                  # Uninstall the char
 kubectl describe pod kube-chrony                            # See whats going on in the pod
 kubectl get svc -w kube-chrony                              # See whats going on with the service
 ```
+# NOTES
+- Adjust NodeSelector in values.yaml as needed. If you do not wish to use it, just replace with `nodeSelector: {}`
