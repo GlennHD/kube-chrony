@@ -1,0 +1,55 @@
+replicaCount: 2
+
+image:
+  repository: "cturra/ntp"
+  tag: ""
+  pullPolicy: IfNotPresent
+
+imagePullSecrets: []
+
+serviceAccount:
+  create: false
+  annotations: {}
+  name: ""
+
+podAnnotations: {}
+podSecurityContext: {}
+securityContext: {}
+
+serviceUDP:
+  type: LoadBalancer
+  port: 123
+  externalTrafficPolicy: Local
+  loadBalancerIP: "10.0.8.223"
+  annotations:
+    metallb.universe.tf/allow-shared-ip: chrony
+
+ntpServers: "time.nist.gov,us.pool.ntp.org"
+
+ingress:
+  enabled: false
+
+probes:
+  liveness:
+    enabled: true
+    initialDelaySeconds: 10
+    failureThreshold: 10
+    timeoutSeconds: 5
+  readiness:
+    enabled: true
+    initialDelaySeconds: 10
+    failureThreshold: 3
+    timeoutSeconds: 5
+
+resources: {}
+autoscaling:
+  enabled: false
+  minReplicas: 1
+  maxReplicas: 100
+
+nodeSelector:
+  ntp: ntp
+
+tolerations: []
+
+affinity: {}
