@@ -1,10 +1,11 @@
 replicaCount: 2
+strategyType: RollingUpdate
 maxSurge: 1
 maxUnavailable: 1
 
 image:
   repository: "cturra/ntp"
-  tag: ""
+  tag: latest
   pullPolicy: IfNotPresent
 
 imagePullSecrets: []
@@ -22,9 +23,9 @@ serviceUDP:
   type: LoadBalancer
   port: 123
   externalTrafficPolicy: Local
-  loadBalancerIP: "10.0.8.223"
+  loadBalancerIP: "10.0.8.222"
   annotations:
-    metallb.universe.tf/allow-shared-ip: chrony
+    metallb.universe.tf/allow-shared-ip: kube-chrony
 
 ntpServers: "time.nist.gov,us.pool.ntp.org"
 
@@ -34,14 +35,16 @@ ingress:
 probes:
   liveness:
     enabled: true
-    initialDelaySeconds: 10
+    periodSeconds: 10
+    initialDelaySeconds: 30
     failureThreshold: 10
-    timeoutSeconds: 5
+    timeoutSeconds: 15
   readiness:
     enabled: true
-    initialDelaySeconds: 10
-    failureThreshold: 3
-    timeoutSeconds: 5
+    periodSeconds: 10
+    initialDelaySeconds: 30
+    failureThreshold: 5
+    timeoutSeconds: 15
 
 resources: {}
 autoscaling:
@@ -53,5 +56,6 @@ nodeSelector:
   ntp: ntp
 
 tolerations: []
-
 affinity: {}
+extraEnvVars: {}
+extraEnvVarsSecret: {}
