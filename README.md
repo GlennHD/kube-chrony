@@ -1,5 +1,5 @@
 # kube-chrony
-Chrony Alpine NTP Server for Kubernetes
+Chrony Alpine NTP Server for Kubernetes via Helm
 # Usage
 ```bash
 https://github.com/GlennHD/kube-chrony.git                  # Download the chart
