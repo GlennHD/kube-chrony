@@ -9,7 +9,8 @@ helm install -f values.yaml kube-chrony ./                  # Install the chart
 ```
 # Other Usage
 ```bash
-helm install -f values.yaml kube-chrony ./                  # Update the config
+cd kube-chrony
+helm upgrade -f values.yaml kube-chrony ./                  # Update the config
 helm uninstall kube-chrony                                  # Uninstall the chart
 kubectl describe pod kube-chrony                            # See whats going on in the pod
 kubectl get svc -w kube-chrony                              # See whats going on with the service
