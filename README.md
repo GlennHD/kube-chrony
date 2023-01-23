@@ -2,7 +2,7 @@
 Chrony Alpine NTP Server for Kubernetes via Helm
 # Usage
 ```bash
-https://github.com/GlennHD/kube-chrony.git                  # Download the chart
+git clone https://github.com/GlennHD/kube-chrony.git                  # Download the chart
 cd kube-chrony                                              # Navigate to the folder
 nano values.yaml                                            # Adjust the values.yaml
 helm install -f values.yaml kube-chrony ./                  # Install the chart
