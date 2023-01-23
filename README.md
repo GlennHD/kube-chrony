@@ -17,4 +17,8 @@ kubectl get svc -w kube-chrony                              # See whats going on
 ntpdate -q 10.0.8.222                                       # test ntp query against load balancer <IP>:123
 ```
 # NOTES
-- Adjust NodeSelector in values.yaml as needed. If you do not wish to use it, just replace with `nodeSelector: {}`
+- Adjust NodeSelector in values.yaml as needed. If you do not wish to use it, just replace with `nodeSelector: {}`. Otherwise, add a label to a node for ntp:ntp.
+- Change IP addres '10.0.8.222' to an IP address within your Load Balancer IP pool range.
+- Change 'jh' to whatever namespace you want.
+- Spin up/down replicaCount as you see fit.
+- Modify ntpServers using your favorite time servers.
